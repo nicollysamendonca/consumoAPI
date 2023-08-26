@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>IBGE — Estados Brasileiros</title>
+</head>
+<body>
+    <h1>Estados Brasileiros</h1>
+    <ul id="state-list"></ul>
+
+    <script>
+        const apiUrl = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados';
+
+        function fetchStates() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const stateList = document.getElementById('state-list');
+
+                    data.forEach(state => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = state.nome;
+                        stateList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Ocorreu um erro:', error);
+                });
+        }
+        fetchStates();
+    </script>
+</body>
+</html>
+

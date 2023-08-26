@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualizar lugares da Europa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Continente Europeu</h1>
+  <ul id="country-list"></ul>
+
+  <script>
+    const apiUrl = 'https://restcountries.com/v3.1/all';
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const europeCountries = data.filter(country => {
+          return country.region === 'Europe';
+        });
+
+        const countryList = document.getElementById('country-list');
+
+        europeCountries.forEach(country => {
+          const listItem = document.createElement('li');
+          listItem.textContent = country.name.common;
+          countryList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('Ocorreu um erro:', error);
+      });
+  </script>
+</body>
+</html>
